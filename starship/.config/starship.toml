@@ -1,0 +1,88 @@
+# ~/.config/starship.toml
+
+# 1. Configuración global
+add_newline = true
+command_timeout = 1000
+palette = "p10k_dark"
+
+# 2. Formato:
+# CAMBIO: Reemplazamos $os por $username al inicio
+format = """
+[](user_bg)\
+$username\
+[](bg:dir_bg fg:user_bg)\
+$directory\
+[](bg:git_bg fg:dir_bg)\
+$git_branch\
+$git_status\
+$python\
+$fill\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
+
+# 3. Módulos
+
+[username]
+show_always = true
+style_user = "bg:user_bg fg:user_fg"
+style_root = "bg:user_bg fg:user_fg bold"
+format = "[$user ]($style)"
+disabled = false
+
+[directory]
+style = "bg:dir_bg fg:dir_fg"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+home_symbol = "~"
+
+[git_branch]
+symbol = ""
+style = "bg:git_bg fg:git_fg"
+format = "[ $symbol $branch ]($style)"
+
+[git_status]
+style = "bg:git_bg fg:git_fg"
+format = "[$all_status$ahead_behind ]($style)"
+
+[fill]
+symbol = " "
+
+[cmd_duration]
+min_time = 3000
+format = "[took $duration]($style) "
+style = "yellow"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+time_format = "%T"
+style = "white dimmed"
+
+# El caracter de la segunda línea (flecha)
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vicmd_symbol = "[❮](green)"
+
+[python]
+symbol = " "
+# La magia está aquí:
+# 1. La primera flecha [] toma el color del anterior (git_bg) y conecta con el amarillo (venv_bg).
+# 2. Muestra la info.
+# 3. La última flecha [] cierra el amarillo hacia transparente.
+style = "bg:venv_bg fg:venv_fg"
+format = '[](bg:venv_bg fg:git_bg)[ $symbol($virtualenv) ]($style)[](fg:venv_bg)'
+
+# 4. Paleta de Colores
+[palettes.p10k_dark]
+user_bg = "#171717"
+user_fg = "#ffffff"
+dir_bg = "#336699"
+dir_fg = "#ffffff"
+git_bg = "#3e3e3e"
+git_fg = "#dcdcdc"
+venv_bg = "#FFD43B" 
+venv_fg = "#000000"
