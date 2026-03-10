@@ -9,6 +9,7 @@ palette = "wezterm"
 # 2. Formato
 format = """
 [░▒▓](fg:color_user_bg)\
+$os\
 $username\
 [](bg:color_dir_bg fg:color_user_bg)\
 $directory\
@@ -24,6 +25,10 @@ $line_break\
 $character"""
 
 # 3. Módulos
+[os]
+disabled = false
+style = "bg:color_user_bg fg:color_user_fg"
+format = "[ $symbol]($style)"
 
 [username]
 show_always = true
