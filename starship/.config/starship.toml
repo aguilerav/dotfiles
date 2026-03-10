@@ -1,21 +1,22 @@
 # ~/.config/starship.toml
+"$schema" = 'https://starship.rs/config-schema.json'
 
 # 1. Configuración global
 add_newline = true
 command_timeout = 1000
-palette = "p10k_dark"
+palette = "wezterm"
 
-# 2. Formato:
-# CAMBIO: Reemplazamos $os por $username al inicio
+# 2. Formato
 format = """
-[](user_bg)\
+[░▒▓](fg:color_user_bg)\
 $username\
-[](bg:dir_bg fg:user_bg)\
+[](bg:color_dir_bg fg:color_user_bg)\
 $directory\
-[](bg:git_bg fg:dir_bg)\
+[](bg:color_git_bg fg:color_dir_bg)\
 $git_branch\
 $git_status\
 $python\
+[](fg:color_git_bg)\
 $fill\
 $cmd_duration\
 $time\
@@ -26,63 +27,70 @@ $character"""
 
 [username]
 show_always = true
-style_user = "bg:user_bg fg:user_fg"
-style_root = "bg:user_bg fg:user_fg bold"
-format = "[$user ]($style)"
+style_user = "bg:color_user_bg fg:color_user_fg"
+style_root = "bg:color_user_bg fg:color_user_fg bold"
+format = "[  $user ]($style)"
 disabled = false
 
 [directory]
-style = "bg:dir_bg fg:dir_fg"
+style = "bg:color_dir_bg fg:color_dir_fg"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 home_symbol = "~"
 
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
 [git_branch]
 symbol = ""
-style = "bg:git_bg fg:git_fg"
-format = "[ $symbol $branch ]($style)"
+style = "bg:color_git_bg"
+# Usamos el verde brillante de WezTerm para resaltar la rama
+format = '[[ $symbol $branch ](fg:color_git_icon bg:color_git_bg)]($style)'
 
 [git_status]
-style = "bg:git_bg fg:git_fg"
-format = "[$all_status$ahead_behind ]($style)"
+style = "bg:color_git_bg"
+format = '[[($all_status$ahead_behind )](fg:color_git_icon bg:color_git_bg)]($style)'
+
+[python]
+symbol = " "
+style = "bg:color_git_bg"
+# Usamos el amarillo de WezTerm para el icono/texto de Python
+format = '[[ $symbol($virtualenv) ](fg:color_python bg:color_git_bg)]($style)'
 
 [fill]
 symbol = " "
 
 [cmd_duration]
 min_time = 3000
+# Amarillo para coincidir con tus tonos cálidos
+style = "fg:color_python"
 format = "[took $duration]($style) "
-style = "yellow"
 
 [time]
 disabled = false
-format = "[$time]($style)"
-time_format = "%T"
-style = "white dimmed"
+time_format = "%R" # Formato Hora:Minuto
+# Morado claro para que resalte sutilmente en la derecha
+style = "fg:color_time"
+format = '[  $time ]($style)'
 
 # El caracter de la segunda línea (flecha)
 [character]
-success_symbol = "[❯](green)"
-error_symbol = "[❯](red)"
-vicmd_symbol = "[❮](green)"
+# Usamos exactamente tus colores verde y rojo de WezTerm
+success_symbol = "[❯](#44FFB1)"
+error_symbol = "[❯](#E52E2E)"
+vicmd_symbol = "[❮](#44FFB1)"
 
-[python]
-symbol = " "
-# La magia está aquí:
-# 1. La primera flecha [] toma el color del anterior (git_bg) y conecta con el amarillo (venv_bg).
-# 2. Muestra la info.
-# 3. La última flecha [] cierra el amarillo hacia transparente.
-style = "bg:venv_bg fg:venv_fg"
-format = '[](bg:venv_bg fg:git_bg)[ $symbol($virtualenv) ]($style)[](fg:venv_bg)'
-
-# 4. Paleta de Colores
-[palettes.p10k_dark]
-user_bg = "#171717"
-user_fg = "#ffffff"
-dir_bg = "#336699"
-dir_fg = "#ffffff"
-git_bg = "#3e3e3e"
-git_fg = "#dcdcdc"
-venv_bg = "#FFD43B" 
-venv_fg = "#000000"
+# 4. Paleta de Colores (Basada en tu WezTerm)
+[palettes.wezterm]
+color_user_bg = "#0FC5ED"   # Cyan/Azul claro (ansi 4)
+color_user_fg = "#011423"   # Fondo oscuro para contraste
+color_dir_bg = "#214969"    # Azul grisáceo oscuro (ansi 0)
+color_dir_fg = "#CBE0F0"    # Foreground principal
+color_git_bg = "#033259"    # Selection bg (un tono más profundo)
+color_git_icon = "#44FFB1"  # Verde brillante para iconos Git
+color_python = "#FFE073"    # Amarillo para Python y duración
+color_time = "#a277ff"      # Morado para la hora
