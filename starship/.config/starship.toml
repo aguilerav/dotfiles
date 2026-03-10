@@ -40,7 +40,7 @@ Linux = " "
 show_always = true
 style_user = "bg:color_user_bg fg:color_user_fg"
 style_root = "bg:color_user_bg fg:color_user_fg bold"
-format = "[  $user ]($style)"
+format = "[ $user ]($style)"
 disabled = false
 
 [directory]
