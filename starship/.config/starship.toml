@@ -30,6 +30,12 @@ disabled = false
 style = "bg:color_user_bg fg:color_user_fg"
 format = "[ $symbol]($style)"
 
+[os.symbols]
+Macos = ""
+Pop = ""
+Ubuntu = ""
+Linux = " "
+
 [username]
 show_always = true
 style_user = "bg:color_user_bg fg:color_user_fg"
