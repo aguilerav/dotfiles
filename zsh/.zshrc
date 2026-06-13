@@ -1,4 +1,15 @@
 # ==============================================
+# 0. DETECCIÓN DE SISTEMA Y VARIABLES
+# ==============================================
+# Guardamos el nombre del OS (Darwin = Mac, Linux = Linux)
+OS="$(uname -s)"
+
+# Cargar Homebrew solo si existe (típico en Mac Apple Silicon)
+if [ -f "/opt/homebrew/bin/brew" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# ==============================================
 # 1. CONFIGURACIÓN BÁSICA
 # ==============================================
 # Historial
@@ -19,30 +30,37 @@ compinit
 # ==============================================
 # 2. PROMPT (STARSHIP)
 # ==============================================
-# Asegúrate de haber instalado starship: curl -sS https://starship.rs/install.sh | sh
 export STARSHIP_CONFIG=~/.config/starship.toml
-eval "$(starship init zsh)"
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+fi
 
 # ==============================================
 # 3. PLUGINS (Carga Manual)
 # ==============================================
-# Nota: Asegúrate de haber clonado estos plugins en ~/dotfiles/zsh/plugins/
-# Si no existen, no darán error fatal, solo no cargarán.
-
 source ~/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source ~/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 # ==============================================
-# 4. ALIASES (Tus atajos)
+# 4. ALIASES (Tus atajos multiplataforma)
 # ==============================================
-alias ll='ls -lah --color=auto'
-alias ls='ls --color=auto'
+# Diferenciar comandos 'ls' dependiendo del OS
+if [ "$OS" = "Darwin" ]; then
+    # macOS (BSD)
+    alias ls='ls -G'
+    alias ll='ls -lahG'
+else
+    # Linux (GNU)
+    alias ls='ls --color=auto'
+    alias ll='ls -lah --color=auto'
+fi
+
 alias grep='grep --color=auto'
 alias v="nvim"
 alias dot="cd ~/dotfiles"
 alias reload="source ~/.zshrc"
 
-# --- Alias de GIT (Reemplazo de Oh My Zsh) ---
+# --- Alias de GIT ---
 alias g='git'
 alias ga='git add'
 alias gaa='git add --all'
@@ -55,16 +73,33 @@ alias gco='git checkout'
 alias gb='git branch'
 
 # ==============================================
-# 5. HERRAMIENTAS EXTERNAS (NVM, FZF, etc)
+# 5. HERRAMIENTAS EXTERNAS Y PATHS
 # ==============================================
 
-# Path para Neovim (si usas la versión descargada en /opt)
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+# Path para Neovim (Carga solo si la carpeta existe en tu Linux)
+if [ -d "/opt/nvim-linux-x86_64/bin" ]; then
+    export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+fi
 
-# NVM (Node Version Manager) - Copiado de tu config anterior
+# NVM (Node Version Manager)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Opcional: Configuración rápida de vi-mode
 bindkey -v
+
+# ==============================================
+# 6. STARTUP (Banner de bienvenida)
+# ==============================================
+# Muestra Fastfetch solo si está instalado
+if command -v fastfetch >/dev/null 2>&1; then
+    fastfetch
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
+
+if [ -f "$HOME/.zshrc.local" ]; then
+    source "$HOME/.local/.zshrc.local"
+fi
+
