@@ -32,3 +32,10 @@ opt.clipboard:append("unnamedplus")
 -- Varios
 opt.iskeyword:append("-")  -- Considera palabras con guion como una sola (ej: kebab-case)
 opt.updatetime = 50        -- Rapidez para mostrar popups/cambios (defecto es 4000ms)
+opt.autoread = true           -- Recarga automática de archivos modificados externamente
+
+-- Forzar verificación de cambios al volver el foco a Neovim (ej: desde opencode)
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  command = "checktime",
+})
