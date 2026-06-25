@@ -100,6 +100,9 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 
 if [ -f "$HOME/.zshrc.local" ]; then
-    source "$HOME/.local/.zshrc.local"
+    source "$HOME/.zshrc.local"
 fi
 
+
+# opencode
+export PATH=/Users/vaguilera/.opencode/bin:$PATH
