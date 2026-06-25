@@ -1,0 +1,58 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ===========================================================================
+  // PROVEEDOR
+  // ===========================================================================
+  "provider": {
+    "openrouter": {
+      "options": {
+        "apiKey": "{env:OPENROUTER_API_KEY}"
+      }
+    }
+  },
+
+  // ===========================================================================
+  // MODELO POR DEFECTO (usado si ningún agente sobreescribe)
+  // ===========================================================================
+  "model": "openrouter/deepseek/deepseek-v4-pro",
+
+  // Modelo ligero para tareas internas (títulos de sesión, resúmenes)
+  "small_model": "openrouter/deepseek/deepseek-v4-flash",
+
+  // ===========================================================================
+  // AGENTE POR DEFECTO AL INICIAR
+  // Plan es el más seguro para empezar; cambia a act cuando quieras ejecutar
+  // ===========================================================================
+  "default_agent": "chat",
+
+  // ===========================================================================
+  // PERMISOS GLOBALES (base para todos los agentes)
+  // Cada agente puede sobreescribir esto en su propio frontmatter
+  // ===========================================================================
+  "permission": {
+    "read":               "allow",   // Leer archivos siempre permitido
+    "glob":               "allow",   // Buscar archivos siempre permitido
+    "grep":               "allow",   // Buscar en contenido siempre permitido
+    "list":               "allow",   // Listar directorios siempre permitido
+    "lsp":                "allow",   // Diagnósticos LSP siempre permitido
+    "edit":               "ask",     // Editar archivos: pide permiso por defecto
+    "write":              "ask",     // Crear archivos: pide permiso por defecto
+    "external_directory": "ask",     // Fuera del proyecto: siempre pide
+    "bash": {
+      "*":                "ask"      // Todo comando shell: pide permiso
+    }
+  },
+
+  // ===========================================================================
+  // TUI
+  // ===========================================================================
+  "autoupdate": false,
+
+  // ===========================================================================
+  // INSTRUCCIONES GLOBALES (se aplican a todos los agentes)
+  // ===========================================================================
+  "instructions": [
+    "~/.config/opencode/AGENTS.md"
+  ]
+}
