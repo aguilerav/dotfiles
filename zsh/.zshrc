@@ -116,17 +116,15 @@ workspace() {
         return
     fi
 
-    # 1. Crear nueva sesión apuntando a Neovim (Inicia con un solo panel completo)
+    # 1. Crear nueva sesión apuntando a Neovim
     tmux new-session -d -s "$session_name" -n "Dev" "nvim ."
 
-    # 2. Dividir la pantalla verticalmente para Opencode (Crea panel derecho)
-    # -h = horizontal split, -p 50 = 50% del ancho
-    tmux split-window -h -p 20 "opencode"
+    # 2. Dividir la pantalla usando -l XX% (Compatible y robusto en Linux/Mac)
+    tmux split-window -h -l 20% "opencode"
 
     # 3. Volver al panel izquierdo (donde está Neovim) para dividirlo abajo
     tmux select-pane -t 0
-    # -v = vertical split, -p 30 = 30% del alto para la terminal de ejecución
-    tmux split-window -v -p 20
+    tmux split-window -v -l 20%
 
     # 4. Dejar el foco inicial en el panel de Neovim (panel 0)
     tmux select-pane -t 0
@@ -138,6 +136,4 @@ workspace() {
 # Crear un alias corto si te da pereza escribir 'workspace'
 alias ws="workspace"
 
-
-# opencode
-export PATH=/Users/vaguilera/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
