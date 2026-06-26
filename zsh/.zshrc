@@ -103,6 +103,41 @@ if [ -f "$HOME/.zshrc.local" ]; then
     source "$HOME/.zshrc.local"
 fi
 
+# ==========================================
+# AUTOMATIZACIÓN DE ENTORNO TMUX (WORKSPACE)
+# ==========================================
+workspace() {
+    # Tomar el nombre de la carpeta actual para nombrar la sesión de tmux
+    local session_name=$(basename "$PWD" | tr '.' '_')
+
+    # Si ya existe una sesión con ese nombre, solo conéctate a ella
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux attach-session -t "$session_name"
+        return
+    fi
+
+    # 1. Crear nueva sesión apuntando a Neovim (Inicia con un solo panel completo)
+    tmux new-session -d -s "$session_name" -n "Dev" "nvim ."
+
+    # 2. Dividir la pantalla verticalmente para Opencode (Crea panel derecho)
+    # -h = horizontal split, -p 50 = 50% del ancho
+    tmux split-window -h -p 20 "opencode"
+
+    # 3. Volver al panel izquierdo (donde está Neovim) para dividirlo abajo
+    tmux select-pane -t 0
+    # -v = vertical split, -p 30 = 30% del alto para la terminal de ejecución
+    tmux split-window -v -p 20
+
+    # 4. Dejar el foco inicial en el panel de Neovim (panel 0)
+    tmux select-pane -t 0
+
+    # Conectarse a la sesión recién creada
+    tmux attach-session -t "$session_name"
+}
+
+# Crear un alias corto si te da pereza escribir 'workspace'
+alias ws="workspace"
+
 
 # opencode
 export PATH=/Users/vaguilera/.opencode/bin:$PATH
