@@ -1,7 +1,7 @@
 ---
 description: Experto técnico para pensar soluciones, analizar tradeoffs y decidir cómo implementar. Solo lectura, sin ejecutar comandos.
 mode: primary
-model: openrouter/deepseek/deepseek-v4-pro
+model: openrouter/z-ai/glm-5.2
 temperature: 0.3
 permission:
   read:    allow

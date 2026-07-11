@@ -21,6 +21,9 @@ return {
       require("nvim-tree").setup({
         view = { relativenumber = true, width = 30 },
         actions = { open_file = { quit_on_open = true } },
+        filters = {
+          git_ignored = false,
+        },
       })
       vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>")
     end,
