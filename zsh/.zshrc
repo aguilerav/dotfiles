@@ -89,19 +89,25 @@ export NVM_DIR="$HOME/.nvm"
 # Opcional: Configuración rápida de vi-mode
 bindkey -v
 
-# ==============================================
-# 6. STARTUP (Banner de bienvenida)
-# ==============================================
-# Muestra Fastfetch solo si está instalado
-if command -v fastfetch >/dev/null 2>&1; then
-    fastfetch
-fi
+# YAZI
+export EDITOR="nvim"
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
 
 if [ -f "$HOME/.zshrc.local" ]; then
     source "$HOME/.zshrc.local"
 fi
+
 
 # ==========================================
 # AUTOMATIZACIÓN DE ENTORNO TMUX (WORKSPACE)
@@ -111,7 +117,7 @@ workspace() {
     local session_name=$(basename "$PWD" | tr '.' '_')
 
     # Si ya existe una sesión con ese nombre, solo conéctate a ella
-    if tmux has-session -t "$session_name" 2>/dev/null; then
+    if tmux has-session -t "=$session_name" 2>/dev/null; then
         tmux attach-session -t "$session_name"
         return
     fi
@@ -133,7 +139,5 @@ workspace() {
     tmux attach-session -t "$session_name"
 }
 
-# Crear un alias corto si te da pereza escribir 'workspace'
 alias ws="workspace"
 
-export PATH="$HOME/.opencode/bin:$PATH"
