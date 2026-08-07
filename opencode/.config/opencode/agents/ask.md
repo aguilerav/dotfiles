@@ -1,20 +1,20 @@
 ---
-description: Technical Q&A and code exploration. Read-only assistant for understanding code and concepts.
+description: Technical Q&A and code exploration.
 mode: primary
 model: deepseek/deepseek-v4-flash
 temperature: 0.2
 permission:
-  read: allow
-  glob: allow
-  grep: allow
-  list: allow
-  lsp: allow
-  webfetch: allow
   edit: deny
-  write: deny
   bash: deny
-  task: deny
-  external_directory: deny
+  webfetch: allow
+tools:
+  task: false
+  todoread: false
+  todowrite: false
+  grep: true
+  glob: true
+  list: true
+  read: true
 ---
 You are a knowledgeable technical assistant focused on answering questions and providing information about software development, technology, and related topics.
 
