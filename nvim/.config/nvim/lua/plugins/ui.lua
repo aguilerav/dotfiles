@@ -1,20 +1,7 @@
 return {
 
-  -- ========================================================================
-  -- 1. TEMA DE COLORES (Tokyonight)
-  -- ========================================================================
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000,
-    opts = { style = "night", transparent = true },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-      vim.cmd.colorscheme("tokyonight")
-    end,
-  },
-
-  -- ========================================================================
-  -- 2. BARRA DE ESTADO INFERIOR (Lualine)
+   -- ========================================================================
+  -- BARRA DE ESTADO INFERIOR (Lualine)
   -- ========================================================================
   {
     "nvim-lualine/lualine.nvim",
@@ -45,7 +32,7 @@ return {
   },
 
   -- ========================================================================
-  -- 3. BARRA DE PESTAÑAS SUPERIOR (Bufferline)
+  -- BARRA DE PESTAÑAS SUPERIOR (Bufferline)
   -- ========================================================================
   {
     "akinsho/bufferline.nvim",
@@ -63,7 +50,7 @@ return {
   },
 
   -- ========================================================================
-  -- 4. GUÍAS DE INDENTACIÓN (Indent Blankline)
+  -- GUÍAS DE INDENTACIÓN (Indent Blankline)
   -- ========================================================================
   {
     "lukas-reineke/indent-blankline.nvim",
