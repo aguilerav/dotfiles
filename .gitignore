@@ -1,2 +1,9 @@
 .DS_Store
 *.swp
+
+# herdr runtime files (generated, not part of the config)
+herdr/.config/herdr/*.sock
+herdr/.config/herdr/*.log
+herdr/.config/herdr/plugins.json
+herdr/.config/herdr/session.json
+herdr/.config/herdr/.plugins.lock
