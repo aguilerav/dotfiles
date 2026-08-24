@@ -141,3 +141,10 @@ workspace() {
 
 alias ws="workspace"
 
+
+# bun completions
+[ -s "/Users/vaguilera/.bun/_bun" ] && source "/Users/vaguilera/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

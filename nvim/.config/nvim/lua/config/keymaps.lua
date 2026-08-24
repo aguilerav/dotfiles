@@ -25,9 +25,9 @@ keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split Horizontal" })
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Igualar tamaño splits" })
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Cerrar split actual" })
 
--- --- NAVEGACIÓN ENTRE PANELES (Integración con Tmux) ---
--- Esto preparará el terreno para el plugin vim-tmux-navigator después.
--- Por ahora, navegarás entre splits de neovim con Ctrl+h/j/k/l
+-- --- NAVEGACIÓN ENTRE PANELES (FALLBACK) ---
+-- Vigentes solo si el paquete herdr no está stoweado. Si lo está,
+-- lua/plugins/editor.lua sobreescribe estos mappings (vim-herdr-navigation).
 keymap.set("n", "<C-h>", "<C-w>h", { desc = "Ir al split izquierdo" })
 keymap.set("n", "<C-j>", "<C-w>j", { desc = "Ir al split inferior" })
 keymap.set("n", "<C-k>", "<C-w>k", { desc = "Ir al split superior" })

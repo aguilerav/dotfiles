@@ -1,14 +1,24 @@
 return {
-  -- Navegación Tmux <-> Neovim
+  -- Navegación herdr <-> tmux <-> neovim (vim-herdr-navigation).
+  -- Ctrl+h/j/k/l mueve entre splits de neovim y, en el borde, salta al pane
+  -- herdr vecino. Cae en vim-tmux-navigator dentro de tmux y en wincmd plano
+  -- en cualquier otro sitio. El script vive vendoreado en el paquete herdr
+  -- de los dotfiles.
   {
     "christoomey/vim-tmux-navigator",
-    cmd = { "TmuxNavigateLeft", "TmuxNavigateDown", "TmuxNavigateUp", "TmuxNavigateRight" },
-    keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-    },
+    lazy = false,
+    init = function()
+      -- Los mappings reales los define vim-herdr-navigation abajo
+      vim.g.tmux_navigator_no_mappings = 1
+    end,
+    config = function()
+      local nav = vim.fn.expand("~/.config/herdr/plugins/vim-herdr-navigation/editor/nvim.lua")
+      if vim.fn.filereadable(nav) == 1 then
+        dofile(nav)
+      end
+      -- Sin paquete herdr stoweado, quedan los mappings fallback de
+      -- config/keymaps.lua: <C-h/j/k/l> -> <C-w>h/j/k/l
+    end,
   },
 
   -- Explorador de archivos (Nvim-Tree)
