@@ -90,11 +90,21 @@ Envía código desde Neovim al panel de terminal activo en Tmux.
 ---
 
 ## 🐚 Zsh (Terminal)
-Atajos nativos de la shell configurados por defecto.
+
+### Autocompletado en vivo (zsh-autocomplete)
+El menú se abre automáticamente mientras escribes, sin presionar nada.
 
 | Atajo | Acción |
 | :--- | :--- |
-| `Ctrl` + `r` | Buscar en el historial de comandos |
+| `Tab` | Insertar el primer completado del menú |
+| `↓` / `Alt` + `↓` | Entrar / navegar el menú de completados |
+| `↑` / `Alt` + `↑` | Entrar / navegar el menú de historial |
+| `Shift` + `Tab` | Expandir la palabra actual |
+| `/` (modo normal) | Buscar en el historial de comandos |
+
+### Atajos nativos
+| Atajo | Acción |
+| :--- | :--- |
 | `Ctrl` + `l` | Limpiar pantalla |
 | `!!` | Repetir último comando |
 | `cd -` | Ir al directorio anterior |

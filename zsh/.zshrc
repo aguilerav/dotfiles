@@ -23,9 +23,9 @@ setopt INC_APPEND_HISTORY
 # Colores
 autoload -U colors && colors
 
-# Autocompletado básico
-autoload -Uz compinit
-compinit
+# NOTA: `compinit` se eliminó porque zsh-autocomplete (sección 6) lo
+# ejecuta internamente con su propio dump. Cargarlo aquí causaría doble
+# inicialización del sistema de completado.
 
 # ==============================================
 # 2. PROMPT (STARSHIP)
@@ -38,8 +38,11 @@ fi
 # ==============================================
 # 3. PLUGINS (Carga Manual)
 # ==============================================
-source ~/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-source ~/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+# Los plugins de zsh se cargan en la sección 6, tras `bindkey -v`:
+# zsh-autocomplete enlaza sus teclas a `main` (alias de `viins` en modo vi),
+# así que debe ir DESPUÉS de `bindkey -v` y ANTES de cualquier `compdef`
+# (las completions de bun están en la sección 7).
+# zsh-syntax-highlighting debe ser SIEMPRE lo último en sourcearse.
 
 # ==============================================
 # 4. ALIASES (Tus atajos multiplataforma)
@@ -88,6 +91,24 @@ export NVM_DIR="$HOME/.nvm"
 
 # Opcional: Configuración rápida de vi-mode
 bindkey -v
+
+# ==============================================
+# 6. AUTOCOMPLETADO EN VIVO + PLUGINS DE ZSH
+# ==============================================
+# Menú en vivo de comandos posibles (no solo historial).
+# Requisitos del README del plugin:
+#   - Va DESPUÉS de `bindkey -v` (enlaza sus teclas a `main`, que en modo
+#     vi es alias de `viins`; si se cargara antes, Tab no funcionaría).
+#   - Va ANTES de cualquier `compdef` (las completions de bun).
+#   - Ejecuta `compinit` internamente (por eso se eliminó en la sección 1).
+source ~/dotfiles/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh 2>/dev/null
+
+# Sugerencia gris desde historial (compatibilidad verificada con autocomplete)
+source ~/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+
+# zsh-syntax-highlighting SIEMPRE debe ser lo último que se sourcea
+# (envuelve los widgets definidos antes; se movió aquí por eso).
+source ~/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 # YAZI
 export EDITOR="nvim"
