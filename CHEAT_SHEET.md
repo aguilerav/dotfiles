@@ -1,11 +1,47 @@
 # ⌨️ Cheat Sheet: The Indestructible Setup
 
-Resumen de los atajos de teclado y comandos principales para este entorno (Zsh + Tmux + Neovim).
+Resumen de los atajos de teclado y comandos principales para este entorno (Zsh + Herdr/Tmux + Neovim).
+
+> **Plataformas**: en macOS/Ubuntu/WSL2 el multiplexer principal es **Herdr**
+> (tmux queda como fallback). En **Termux** no existe herdr: se usa solo tmux.
 
 ---
 
-## ⚡ Tmux (Multiplexer)
+## 🐑 Herdr (Multiplexer Principal)
+**Prefijo Global:** `Ctrl` + `a`
+
+### 🧭 Navegación (Estilo Vim)
+Funciona igual en Herdr y dentro de Neovim: cruza paneles ↔ splits.
+
+| Atajo | Acción |
+| :--- | :--- |
+| `Ctrl` + `h` | Moverse a la **Izquierda** |
+| `Ctrl` + `j` | Moverse **Abajo** |
+| `Ctrl` + `k` | Moverse **Arriba** |
+| `Ctrl` + `l` | Moverse a la **Derecha** |
+
+### 🪟 Gestión de Paneles y Workspaces
+| Atajo | Acción |
+| :--- | :--- |
+| `<Prefix> v` | Dividir **Verticalmente** (derecha) |
+| `<Prefix> -` | Dividir **Horizontalmente** (abajo) |
+| `<Prefix> z` / `m` | **Zoom** (Maximizar/Restaurar panel) |
+| `<Prefix> d` | **Dev layout**: nvim (izq) + opencode (der) + terminal (abajo) |
+| `<Prefix> shift+1..9` | Cambiar de workspace |
+| `<Prefix> shift+[` / `]` | Workspace anterior / siguiente |
+
+### ⚙️ Utilidades
+| Atajo | Acción |
+| :--- | :--- |
+| `<Prefix> alt+g` | Abrir **Lazygit** en popup |
+| `<Prefix> shift+c` | Limpiar pantalla (envía Ctrl+L literal) |
+
+---
+
+## ⚡ Tmux (Multiplexer Fallback)
 **Prefijo Global:** `Ctrl` + `a` (Reemplaza al defecto Ctrl+b)
+
+> Solo se usa cuando Herdr no está instalado (ej. Termux).
 
 ### 🪟 Gestión de Paneles y Ventanas
 | Atajo | Acción |

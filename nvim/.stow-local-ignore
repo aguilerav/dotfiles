@@ -1,0 +1,4 @@
+# Ignora archivos de macOS Finder dentro de este paquete.
+# (Son creados por Finder, no trackeados en git; sin esto `stow` fallaría
+# al intentar enlazarlos sobre los .DS_Store existentes en $HOME.)
+\.DS_Store

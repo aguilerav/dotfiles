@@ -164,7 +164,7 @@ alias ws="workspace"
 
 
 # bun completions
-[ -s "/Users/vaguilera/.bun/_bun" ] && source "/Users/vaguilera/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
